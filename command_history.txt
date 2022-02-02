@@ -1,0 +1,29 @@
+my Dockerfile:
+root@u-45755:/home/user/Docker/task8# cat Dockerfile 
+FROM nginx:stable
+COPY nginx.conf /etc/nginx/nginx.conf
+
+
+root@u-45755:/home/user/Docker/task8# docker build -t nginx:rbm-dkr-08 .
+Sending build context to Docker daemon  3.584kB
+Step 1/2 : FROM nginx:stable
+ ---> d6c9558ba445
+Step 2/2 : COPY nginx.conf /etc/nginx/nginx.conf
+ ---> a766a3d7198d
+Successfully built a766a3d7198d
+Successfully tagged nginx:rbm-dkr-08
+
+root@u-45755:/home/user/Docker/task8# docker images
+REPOSITORY    TAG             IMAGE ID       CREATED          SIZE
+nginx         rbm-dkr-08      a766a3d7198d   29 seconds ago   141MB
+nginx         stable          d6c9558ba445   7 days ago       141MB
+
+root@u-45755:/home/user/Docker/task8# docker run -d --name dkr-08 -p 127.0.0.1:8900:80 nginx:rbm-dkr-08
+0f964637c8e2db56163597bc78b983860de7834c6adb2375c92cf84bc60e1522
+
+root@u-45755:/home/user/Docker/task8# docker ps
+CONTAINER ID   IMAGE              COMMAND                  CREATED          STATUS          PORTS                    NAMES
+0f964637c8e2   nginx:rbm-dkr-08   "/docker-entrypoint.…"   3 seconds ago    Up 2 seconds    127.0.0.1:8900->80/tcp   dkr-08
+
+root@u-45755:/home/user/Docker/task8# curl http://127.0.0.1:8900
+Welcome to the training program RebrainMe: Docker!
